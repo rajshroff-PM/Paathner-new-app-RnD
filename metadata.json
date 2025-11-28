@@ -1,0 +1,8 @@
+{
+  "name": "Paathner new app RnD",
+  "description": "An interactive indoor navigation application for Amanora Mall, featuring a dynamic map, store directory, and an AI-powered shopping assistant.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
