@@ -25,16 +25,6 @@ const LostAndFound: React.FC<LostAndFoundProps> = ({ onBack }) => {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Swipe to back logic
-  const touchStart = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart.current) return;
-    const diff = e.changedTouches[0].clientX - touchStart.current;
-    if (Math.abs(diff) > 50 && !showReportForm) onBack(); 
-    touchStart.current = null;
-  };
-
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
@@ -81,8 +71,6 @@ const LostAndFound: React.FC<LostAndFoundProps> = ({ onBack }) => {
   return (
     <div 
       className="h-full flex flex-col bg-gray-50 dark:bg-gray-900 relative overflow-hidden transition-colors duration-300"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
       {/* Header */}
       <div className="flex items-center gap-4 p-4 pt-safe-area border-b border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 sticky top-0 z-10 transition-colors">

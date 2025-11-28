@@ -25,21 +25,9 @@ const EventDetails: React.FC<EventDetailsProps> = ({ event, onBack }) => {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // Swipe for back nav
-  const touchStart = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart.current) return;
-    const diff = e.changedTouches[0].clientX - touchStart.current;
-    if (Math.abs(diff) > 50) onBack(); 
-    touchStart.current = null;
-  };
-
   return (
     <div 
       className="h-full flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
       {/* Image Carousel Header */}
       <div className="relative h-80 shrink-0 bg-gray-200 dark:bg-gray-800">

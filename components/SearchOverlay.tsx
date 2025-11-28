@@ -156,16 +156,6 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({
     };
   }, [initialQuery, activeCategory]);
 
-  // Swipe Logic
-  const touchStart = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart.current) return;
-    const diff = e.changedTouches[0].clientX - touchStart.current;
-    if (diff > 75) onClose(); // Swipe Right to close
-    touchStart.current = null;
-  };
-
   if (!isVisible && !isOpen) return null;
 
   // Helper to trigger AI Chat for internet search
@@ -179,8 +169,6 @@ const SearchOverlay: React.FC<SearchOverlayProps> = ({
   return (
     <div 
       className={`fixed inset-0 z-[80] flex flex-col bg-gray-50/95 dark:bg-gray-950/95 backdrop-blur-3xl transition-all duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
        {/* --- Search Header --- */}
        <div className="px-4 pb-4 pt-safe-area pt-3 flex flex-col gap-4 bg-gradient-to-b from-white/80 dark:from-black/50 to-transparent sticky top-0 z-20">

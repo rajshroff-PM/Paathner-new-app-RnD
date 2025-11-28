@@ -32,21 +32,9 @@ const LocationSelector: React.FC<LocationSelectorProps> = ({ currentVenue, onSel
     return matchesCategory && matchesCity && matchesSearch;
   });
 
-  // Swipe Logic
-  const touchStartX = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = e.changedTouches[0].clientX - touchStartX.current;
-    if (diff > 75) onClose(); // Swipe Right to close
-    touchStartX.current = null;
-  };
-
   return (
     <div 
       className="fixed inset-0 z-[110] bg-gray-50 dark:bg-gray-900 flex flex-col animate-fade-in transition-colors duration-300"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
        {/* Header */}
        <div className="bg-white dark:bg-gray-900 p-4 border-b border-gray-200 dark:border-white/10 pt-safe-area safe-area-top transition-colors">

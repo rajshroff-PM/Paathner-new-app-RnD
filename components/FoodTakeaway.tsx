@@ -38,8 +38,6 @@ const FoodTakeaway: React.FC<FoodTakeawayProps> = ({ onBack, onSelectMerchant })
   // Carousel State
   const [currentBanner, setCurrentBanner] = useState(0);
 
-  const touchStart = useRef<number | null>(null);
-  
   // Carousel Auto-slide
   useEffect(() => {
       const timer = setInterval(() => {
@@ -79,14 +77,6 @@ const FoodTakeaway: React.FC<FoodTakeawayProps> = ({ onBack, onSelectMerchant })
       return matchesQuery && matchesCategory;
     });
   }, [query, activeCategory]);
-
-  const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart.current) return;
-    const diff = e.changedTouches[0].clientX - touchStart.current;
-    if (Math.abs(diff) > 50 && !showHistory) onBack(); 
-    touchStart.current = null;
-  };
 
   const handleOrderClick = (order: Order) => {
       setSelectedOrder(order);
@@ -327,8 +317,6 @@ const FoodTakeaway: React.FC<FoodTakeawayProps> = ({ onBack, onSelectMerchant })
   return (
     <div 
       className="h-full flex flex-col bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
       {/* Header */}
       <div className="flex items-center justify-between p-4 pt-safe-area border-b border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 sticky top-0 z-10">

@@ -43,16 +43,6 @@ const SideMenu: React.FC<SideMenuProps> = ({
     }
   }, [isOpen]);
 
-  // Swipe Logic
-  const touchStartX = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = e.changedTouches[0].clientX - touchStartX.current;
-    if (diff < -50) onClose(); // Swipe Left to close
-    touchStartX.current = null;
-  };
-
   return (
     <>
       {/* Backdrop */}
@@ -73,8 +63,6 @@ const SideMenu: React.FC<SideMenuProps> = ({
           flex flex-col overflow-hidden
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
       >
         {/* Ambient Glows */}
         <div className="absolute -top-20 -left-20 w-60 h-60 bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>

@@ -501,7 +501,7 @@ function App() {
          </div>
 
          {/* Food Takeaway Floating Button */}
-         {activeTab === 'map' && !isStoreSheetOpen && !showAR && !showProfile && !isMapFullScreen && (
+         {activeTab === 'map' && !isStoreSheetOpen && !showAR && !showProfile && !isMapFullScreen && !viewingStoreProfile && (
             <button
                 onClick={() => handleTakeawayOpen()}
                 className={`fixed bottom-6 right-6 z-[90] group transition-all duration-500 transform hover:scale-110 active:scale-95 scale-100 opacity-100 translate-y-0`}

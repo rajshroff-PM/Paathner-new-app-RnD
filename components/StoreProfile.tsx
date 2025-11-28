@@ -31,26 +31,11 @@ const StoreProfile: React.FC<StoreProfileProps> = ({ store, onClose, onNavigate,
     return [...MOCK_REVIEWS]; // Simplified sorting
   }, [sortBy]);
 
-  const touchStartY = useRef<number | null>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const onTouchStart = (e: React.TouchEvent) => { touchStartY.current = e.touches[0].clientY; };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartY.current === null) return;
-    const diffY = e.changedTouches[0].clientY - touchStartY.current;
-    if (diffY > 75 && (!contentRef.current || contentRef.current.scrollTop <= 0)) {
-       onClose();
-    }
-    touchStartY.current = null;
-  };
-
   const isFoodPlace = ['Restaurant', 'Cafe', 'Food'].includes(store.category);
 
   return (
     <div 
       className="fixed inset-x-0 bottom-0 z-[70] h-[90dvh] bg-white dark:bg-gray-900 flex flex-col rounded-t-3xl shadow-2xl animate-slide-up overflow-hidden border-t border-gray-200 dark:border-white/10 transition-colors duration-300"
-      onTouchStart={onTouchStart}
-      onTouchEnd={onTouchEnd}
     >
       {/* Drag Handle */}
       <div className="absolute top-0 left-0 right-0 h-6 z-20 flex justify-center items-center pointer-events-none">
@@ -104,7 +89,7 @@ const StoreProfile: React.FC<StoreProfileProps> = ({ store, onClose, onNavigate,
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="flex-1 overflow-y-auto p-6 pb-32">
+      <div className="flex-1 overflow-y-auto p-6 pb-32">
          {activeTab === 'about' && (
             <div className="space-y-6">
                <div className="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-5 border border-gray-100 dark:border-white/5">
